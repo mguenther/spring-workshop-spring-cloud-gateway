@@ -1,0 +1,14 @@
+### Show currently registered applications
+
+GET http://localhost:8761/eureka/apps
+Accept: application/json
+
+### Show all instances for query service
+
+GET http://localhost:8761/eureka/apps/gtd-query-service
+Accept: application/json
+
+### Show all instances for command service
+
+GET http://localhost:8761/eureka/apps/gtd-command-service
+Accept: application/json

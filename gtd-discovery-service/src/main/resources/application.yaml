@@ -1,0 +1,18 @@
+server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: localhost
+  # This is the standard configuration for a standalone Eureka server.
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      default-zone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  # We'll override some parameters to minimize startup delay. You should go
+  # with the defaults in production-grade setup and change them based as
+  # appropriate based on evidence.
+  server:
+    wait-time-in-ms-when-sync-empty: 1000
+    response-cache-update-interval-ms: 5000

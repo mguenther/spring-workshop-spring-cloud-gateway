@@ -1,0 +1,19 @@
+### Create item
+
+POST http://localhost:8089/api/items
+Accept: application/json
+Content-Type: application/json
+
+{
+  "description": "Buy groceries"
+}
+
+### Show all items
+
+GET http://localhost:8090/api/items
+Accept: application/json
+
+### Show item by ID
+
+GET http://localhost:8090/api/items/{replace-me}
+Accept: application/json

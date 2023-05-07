@@ -1,0 +1,66 @@
+server:
+  port: 8089
+  servlet:
+    context-path: /
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: gtd-command-service
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: workshop.spring.gtd.event.ItemEventDeserializer
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      isolation-level: read_committed
+    listener:
+      ack-mode: MANUAL
+    producer:
+      bootstrap-servers: localhost:9092
+      transaction-id-prefix: gtd
+
+gtd:
+  topic: topic-getting-things-done
+  groupId: getting-things-done
+
+management:
+  security:
+    enabled: false
+
+api:
+  create-item:
+    description: Creates new todo items.
+    notes: This method creates a new todo item. The ID is auto-generated and assigned to the newly created todo item.
+  close-item:
+    description: Closes todo items.
+    notes: This operation closes the todo item identified by the given ID.
+  update-item:
+    description: Modifies todo items.
+    notes: Accepts the JSON representation of a todo item and extracts change commands from that payload. These commands are individually validated by the command service and, if applicable, turned into events that capture the state transition.
+  response-codes:
+    created.description: The command service accepted the request and created a new todo item. The ID of that item is given with the Location header.
+    accepted.description: The command service accepted the request to alter the state of the todo item identified by the given ID.
+    notFound.description: An item with the given ID does not exist.
+    internalServerError.description: The command service was unable to process the request due to an internal server error.
+  common:
+    version: 1.0.0
+    title: Getting Things Done - Command Service API
+    description: This API is used to create new items or modify existing ones.
+    license: MIT
+    licenseUrl: https://opensource.org/license/mit/
+    contact:
+      name: Boris Fresow
+      url: https://www.fresow.de
+      email: contact@fresow.de
+
+springdoc:
+  swagger-ui.path: /openapi/swagger-ui.html
+  api-docs.path: /openapi/v3/api-docs
+  packagesToScan: workshop.spring.gtd.api
+  pathsToMatch: /**
