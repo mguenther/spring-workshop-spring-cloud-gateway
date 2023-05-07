@@ -1,0 +1,24 @@
+### Show all registered route definitions
+
+GET http://localhost:8080/actuator/gateway/routes
+Accept: application/json
+
+### Command Service: Create item
+
+POST http://localhost:8080/api/items
+Accept: application/json
+Content-Type: application/json
+
+{
+  "description": "Buy groceries"
+}
+
+### Query Service: Show all items
+
+GET http://localhost:8080/api/items
+Accept: application/json
+
+### Query Service: Show item by ID
+
+GET http://localhost:8080/api/items/{replace-me}
+Accept: application/json
