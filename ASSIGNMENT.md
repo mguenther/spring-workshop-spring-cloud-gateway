@@ -43,7 +43,7 @@ The final configuration for Actuator endpoints should look like this:
 ```yaml
 management:
   endpoint:
-    gateway:  
+    gateway:
       enabled: true
     health:
       show-details: "ALWAYS"
@@ -88,11 +88,11 @@ spring:
     gateway:
       routes:
       -id: <route ID goes here>
-       uri: <target URI goes here>
-       predicates:
-         - Method=POST
-         - Method=PUT
-         - Method=DELETE
+        uri: <target URI goes here>
+        predicates:
+          - Method=POST
+          - Method=PUT
+          - Method=DELETE
 ```
 
 and
@@ -141,7 +141,7 @@ WORKDIR /opt/app
 
 RUN adduser --system -shell /usr/sbin/nologin --group javauser
 
-COPY target/gtd-query-service-1.0.0-SNAPSHOT.jar app.jar
+COPY target/gtd-edge-service-1.0.0-SNAPSHOT.jar app.jar
 
 RUN chown -R javauser:javauser .
 

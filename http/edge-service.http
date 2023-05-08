@@ -22,3 +22,23 @@ Accept: application/json
 
 GET http://localhost:8080/api/items/{replace-me}
 Accept: application/json
+
+### Command Service: Create item (refined)
+
+POST http://localhost:8080/command-service/api/items
+Accept: application/json
+Content-Type: application/json
+
+{
+  "description": "Buy groceries"
+}
+
+### Query Service: Show all items (refined)
+
+GET http://localhost:8080/query-service/api/items
+Accept: application/json
+
+### Query Service: Show item by ID (refined)
+
+GET http://localhost:8080/query-service/api/items/{replace-me}
+Accept: application/json

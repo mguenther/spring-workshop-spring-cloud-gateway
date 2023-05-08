@@ -32,12 +32,12 @@ Use the `Method` predicate.
 
 ```yaml
 spring:
-  cloud:  
-    gateway:  
+  cloud:
+    gateway:
       routes:
-        - id: query-service  
-          uri: http://localhost:8090  
-          predicates:  
+        - id: query-service
+          uri: http://localhost:8090
+          predicates:
             - Method=GET
 ```
 
@@ -51,12 +51,12 @@ Use the `Method` predicate.
 
 ```yaml
 spring:
-  cloud:  
-    gateway:  
-      routes:  
-        - id: command-service  
-          uri: http://localhost:8089  
-          predicates:  
+  cloud:
+    gateway:
+      routes:
+        - id: command-service
+          uri: http://localhost:8089
+          predicates:
             - Method=POST,PUT,DELETE
 ```
 
@@ -76,15 +76,17 @@ Of course, this could be easily remedied by introducing a proper context path fo
 The resulting route definition looks like this:
 
 ```yaml
-- id: command-service  
-  uri: http://localhost:8089  
-  predicates:  
-    - Path=/command-service/**  
-  filters:  
+- id: command-service
+  uri: http://localhost:8089
+  predicates:
+    - Path=/command-service/**
+  filters:
     - RewritePath=/command-service/(?<remaining>.*), /$\{remaining}
 ```
 
 Do the same for the route to the query service.
+
+Don't forget to remove the former routes that used the `Method` predicate. Otherwise, they'll match first.
 
 ## Task 4.5
 
@@ -113,9 +115,9 @@ With this configuration in place, everything should work fine now.
 The Edge Service needs to know where the Discovery Service is located at. Add the following segment to its `application.yaml`.
 
 ```yaml
-eureka:  
-  client:  
-    serviceUrl:  
+eureka:
+  client:
+    serviceUrl:
       defaultZone: http://localhost:8761/eureka
 ```
 
@@ -141,8 +143,8 @@ Add the following code to the main class of the service or any other class that 
 @Bean
 @LoadBalanced
 public WebClient.Builder loadBalancedWebClientBuilder() {
-    return WebClient.builder();
-}
+        return WebClient.builder();
+        }
 ```
 
 ## Task 5.4
@@ -151,12 +153,12 @@ The path to the target needs to change. We should no longer address individual h
 
 ```yaml
 spring:
-  cloud:  
-    gateway:  
+  cloud:
+    gateway:
       routes:
-        - id: query-service  
-          uri: http://localhost:8090  
-          predicates:  
+        - id: query-service
+          uri: http://localhost:8090
+          predicates:
             - Method=GET
 ```
 
@@ -164,12 +166,12 @@ needs to be re-written to this:
 
 ```yaml
 spring:
-  cloud:  
-    gateway:  
+  cloud:
+    gateway:
       routes:
-        - id: query-service  
-          uri: lb://gtd-query-service  
-          predicates:  
+        - id: query-service
+          uri: lb://gtd-query-service
+          predicates:
             - Method=GET
 ```
 
@@ -178,30 +180,30 @@ where `lb://` instructs the Edge Service to use a load-balanced `WebClient` and 
 ## Task 6.1
 
 ```yaml
-- id: eureka-api  
-  uri: http://${app.eureka-server}:8761  
-  predicates:  
-    - Path=/eureka/api/{segment}  
-  filters:  
+- id: eureka-api
+  uri: http://${app.eureka-server}:8761
+  predicates:
+    - Path=/eureka/api/{segment}
+  filters:
     - SetPath=/eureka/{segment}
 ```
 
 ## Task 6.2
 
 ```yaml
-- id: eureka-web-start  
-  uri: http://${app.eureka-server}:8761  
-  predicates:  
-    - Path=/eureka/web  
-  filters:  
+- id: eureka-web-start
+  uri: http://${app.eureka-server}:8761
+  predicates:
+    - Path=/eureka/web
+  filters:
     - SetPath=/
 ```
 
 ## Task 6.3
 
 ```yaml
-- id: eureka-web-other  
-  uri: http://${app.eureka-server}:8761  
-  predicates:  
+- id: eureka-web-other
+  uri: http://${app.eureka-server}:8761
+  predicates:
     - Path=/eureka/**
 ```
