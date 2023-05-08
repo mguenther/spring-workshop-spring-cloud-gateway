@@ -112,7 +112,7 @@ spring:
 
 3. Verify that the route has been correctly configured by using the HTTP request definitions in `edge-service.http`.
 
-## (Optional) Task #4: Routing requests to OpenAPI UI
+## Task #4: Routing requests to OpenAPI UI
 
 Note: Don't worry about integrating the Edge Service just yet. We'll work on `localhost` for this task.
 
@@ -126,7 +126,7 @@ Your task is to configure route definitions that target the OpenAPI UIs for both
 
 4. Add another rule that matches all HTTP requests with path segment `/query-service` and that redirects these requests to path `/` of the Query Service.
 
-5. What do you expect will happen if you open [http://localhost:8080/openapi/swagger-ui.html](http://localhost:8080/openapi/swagger-ui.html)? Why?
+5. What do you expect will happen if you open [http://localhost:8080/query-service/openapi/swagger-ui.html](http://localhost:8080/query-service/openapi/swagger-ui.html)? Why?
 
 ## Interlude: Dockerize the Edge Service
 
